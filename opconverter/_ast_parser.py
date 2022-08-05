@@ -27,6 +27,7 @@ class OperationNodeTransformer(NodeTransformer):
     def visit_AugAssign(self, node: AugAssign) -> Assign:
         op_name = AUGMENT + get_bin_conversion(get_cls_name_of(node.op))
         left, right = node.target, node.value
+        self._symbol_update(op_name)
         new_node = OperationNodeTransformer(
             Assign(
                 targets=[node.target],
