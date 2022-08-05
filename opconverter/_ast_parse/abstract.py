@@ -81,7 +81,7 @@ class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
         imported for use when the tree gets finalized.
 
         Args:
-            import_symbols (str): Iterable of str instances which are import symbols
-                                            which should be imported from stdlib operator.
+            import_symbols (str): str instances which are import symbols
+                                  which are meant to be imported from stdlib operator.
         """
         ...
