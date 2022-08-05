@@ -1,5 +1,6 @@
 from ast import (
     And,
+    Assign,
     BinOp,
     BoolOp,
     Call,
@@ -10,16 +11,34 @@ from ast import (
     fix_missing_locations,
     parse,
     Compare,
+    AugAssign,
     unparse,
 )
 from ._import_helper import add_ImportFromNode
 from ._helpers import get_bin_conversion, get_cls_name_of, get_cmp_conversion
+from ._constants import AUGMENT
 
 
 class OperationNodeTransformer(NodeTransformer):
     def __init__(self, tree) -> None:
         self.operator_import_symbols: set[str] = set()
         self.result = fix_missing_locations(self.visit(tree))
+
+    def visit_AugAssign(self, node: AugAssign) -> Assign:
+        op_name = AUGMENT + get_bin_conversion(get_cls_name_of(node.op))
+        left, right = node.target, node.value
+        new_node = OperationNodeTransformer(
+            Assign(
+                targets=[node.target],
+                value=Call(
+                    func=Name(id=op_name, ctx=Load()),
+                    args=[left, right],
+                    keywords=[],
+                ),
+            )
+        )
+        self._symbol_update(*new_node.operator_import_symbols)
+        return new_node.result
 
     def visit_BinOp(self, node: BinOp) -> Call:
         left, right = node.left, node.right

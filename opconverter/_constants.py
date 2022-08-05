@@ -20,3 +20,4 @@ CMP_SPECIAL_CASES: Final[dict[str, str]] = {
     # NotIn does not have a direct implementation in stdlib `operator`
 }
 DUNDER_FUTURE_IMPORT: Final[str] = "__future__"
+AUGMENT: Final[str] = "i"
