@@ -82,6 +82,17 @@ class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
 
         Args:
             import_symbols (str): str instances which are import symbols
-                                  which are meant to be imported from stdlib operator.
+                                  which are meant to be imported from stdlib operator
         """
         ...
+
+    @property
+    @abstractmethod
+    def operator_import_symbols(self) -> Iterable[str]:
+        """
+        Abstract property which returns an iterable of str instances which are
+        reported to be used as import symbols
+
+        Returns:
+            Iterable[str]: Import symbols from stdlib operator
+        """
