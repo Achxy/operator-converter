@@ -1,11 +1,10 @@
-from typing import Final, Iterable
+from typing import Iterable
 from ast import Module, ImportFrom, alias
-
-FUTURE_IMPORT: Final[str] = "__future__"
+from ._constants import DUNDER_FUTURE_IMPORT
 
 
 def _is_ImportFromFuture(node) -> bool:
-    return isinstance(node, ImportFrom) and node.module == FUTURE_IMPORT
+    return isinstance(node, ImportFrom) and node.module == DUNDER_FUTURE_IMPORT
 
 
 def add_ImportFromNode(
