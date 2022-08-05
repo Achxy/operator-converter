@@ -10,17 +10,7 @@ from ast import (
     unparse,
 )
 from ._import_helper import add_ImportFromNode
-from ._constants import BIN_OP_SPECIAL_CASES
-from typing import Any
-
-
-def _get_bin_conversion(op_name: str) -> str:
-    return BIN_OP_SPECIAL_CASES.get(op_name, op_name.lower())
-
-
-def _get_cls_name_of(obj: Any) -> str:
-    cls = type(obj)
-    return cls.__name__
+from ._helpers import get_bin_conversion, get_cls_name_of
 
 
 class OperationNodeTransformer(NodeTransformer):
@@ -30,7 +20,7 @@ class OperationNodeTransformer(NodeTransformer):
 
     def visit_BinOp(self, node: BinOp) -> Call:
         lhs, rhs = node.left, node.right
-        op_name = _get_bin_conversion(_get_cls_name_of(node.op))
+        op_name = get_bin_conversion(get_cls_name_of(node.op))
         self.operator_import_symbols.add(op_name)
         new_node = OperationNodeTransformer(
             Call(
