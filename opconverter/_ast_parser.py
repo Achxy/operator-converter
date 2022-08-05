@@ -22,13 +22,13 @@ class OperationNodeTransformer(NodeTransformer):
         self.result = fix_missing_locations(self.visit(tree))
 
     def visit_BinOp(self, node: BinOp) -> Call:
-        lhs, rhs = node.left, node.right
+        left, right = node.left, node.right
         op_name = get_bin_conversion(get_cls_name_of(node.op))
         self._symbol_update(op_name)
         new_node = OperationNodeTransformer(
             Call(
                 func=Name(id=op_name, ctx=Load()),
-                args=[lhs, rhs],
+                args=[left, right],
                 keywords=[],
             )
         )
