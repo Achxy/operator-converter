@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ast import Assign, NodeTransformer, AugAssign, BinOp, Call
+from ast import Assign, NodeTransformer, AugAssign, BinOp, Call, Compare
 
 
 class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
@@ -43,9 +43,32 @@ class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
                 a, b = 1, 2
                 c = a + b
                 print(c)
+
             Conversion:
                 from operator import add
                 a, b = 1, 2
                 c = add(a, b)
                 print(C)
+        """
+
+    @abstractmethod
+    def visit_Compare(self, node: Compare) -> Call:
+        """
+        Abstract method to implement `Compare` to `Call` conversion on a node
+
+        Args:
+            node (Compare): Compare node
+
+        Returns:
+            Call: Call node after conversion to operator function equivalent
+
+        Example:
+            Initial:
+                x, y = 1, 2
+                print(y > x)
+
+            Conversion:
+                from operator import ge
+                x, y = 1, 2
+                print(ge(x, y))
         """
