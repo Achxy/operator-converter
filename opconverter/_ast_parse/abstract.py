@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from ast import Assign, NodeTransformer, AugAssign, BinOp, Call, Compare
+from typing import Iterable
 
 
 class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
@@ -72,3 +73,15 @@ class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
                 x, y = 1, 2
                 print(ge(x, y))
         """
+
+    @abstractmethod
+    def extend_import_symbols(self, import_symbols: Iterable[str]) -> None:
+        """
+        Abstract method to report use of an `operator` function, as such they can be
+        imported for use when the tree gets finalized.
+
+        Args:
+            import_symbols (Iterable[str]): Iterable of str instances which are import symbols
+                                            which should be import from stdlib operator.
+        """
+        ...
