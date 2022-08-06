@@ -1,5 +1,3 @@
-from typing import TypeVar
-from ast import AST
+from typing import TypeAlias, Final
 
-
-AST_co = TypeVar("AST_co", bound=AST, covariant=True)
+All: TypeAlias = tuple[str]
