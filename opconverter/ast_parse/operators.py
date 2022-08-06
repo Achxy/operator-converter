@@ -7,7 +7,6 @@ from ._helpers import (
     get_cmp_conversion,
     recursively_convert_inner_nodes,
 )
-from ._import_helper import add_ImportFromNode
 from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
 
 
