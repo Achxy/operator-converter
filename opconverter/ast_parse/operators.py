@@ -76,6 +76,7 @@ class OperationNodeTransformer(AbstractBaseStandardOperationFunctionNodeTransfor
 
     def visit_UnaryOp(self, node: UnaryOp):
         op = get_unary_conversion(get_cls_name_of(node.op))
+        self._extend_import_symbols(op)
         converted = recursively_convert_inner_nodes(
             Call(func=Name(id=op, ctx=Load()), args=[node.operand], keywords=[])
         )
