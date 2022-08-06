@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ast import Assign, NodeTransformer, AugAssign, BinOp, Call, Compare
+from ast import Assign, NodeTransformer, AugAssign, BinOp, Call, Compare, AST
 from typing import Iterable
 
 
@@ -95,4 +95,16 @@ class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
 
         Returns:
             Iterable[str]: Import symbols from stdlib operator
+        """
+
+    @property
+    @abstractmethod
+    def result(self) -> AST:
+        """
+        Abstract property which returns abstract syntax tree node where appropriate
+        conversions have taken place, nodes returned by this decriptor can be expected to
+        have non-missing `lineno` and `col_offset`
+
+        Returns:
+            AST: Abstract Syntax Tree
         """
