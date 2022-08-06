@@ -1,8 +1,7 @@
-from __future__ import annotations
+from ..typeshack import SpecialCase
 from typing import Final
 
-
-BIN_OP_SPECIAL_CASES: Final[dict[str, str]] = {
+BIN_OP_SPECIAL_CASES: SpecialCase = {
     "Mult": "mul",
     "Div": "truediv",
     "BitOr": "or_",
@@ -10,7 +9,7 @@ BIN_OP_SPECIAL_CASES: Final[dict[str, str]] = {
     "BitAnd": "and_",
     "MatMult": "matmul",
 }
-CMP_SPECIAL_CASES: Final[dict[str, str]] = {
+CMP_SPECIAL_CASES: SpecialCase = {
     "NotEq": "ne",
     "LtE": "le",
     "GtE": "ge",
@@ -19,5 +18,12 @@ CMP_SPECIAL_CASES: Final[dict[str, str]] = {
     "In": "contains",
     # NotIn does not have a direct implementation in stdlib `operator`
 }
+UNARY_OP_SPECIAL_CASES: SpecialCase = {
+    "UAdd": "pos",
+    "USub": "neg",
+    "Not": "not_",
+}
+
 DUNDER_FUTURE_IMPORT: Final[str] = "__future__"
 AUGMENT: Final[str] = "i"
+FIRST: Final[int] = 1

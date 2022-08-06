@@ -1,5 +1,6 @@
+from ast import ImportFrom, Module, alias
 from typing import Iterable
-from ast import Module, ImportFrom, alias
+
 from ._constants import DUNDER_FUTURE_IMPORT
 
 
