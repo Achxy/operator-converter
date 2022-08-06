@@ -11,6 +11,8 @@ from ._constants import AUGMENT, FIRST
 
 
 class OperationNodeTransformer(AbstractBaseStandardOperationFunctionNodeTransformer):
+    __slots__ = ()
+
     def visit_AugAssign(self, node: AugAssign) -> Assign:
         op = AUGMENT + get_bin_conversion(get_cls_name_of(node.op))
         left, right = node.target, node.value

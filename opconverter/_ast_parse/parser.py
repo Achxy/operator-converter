@@ -6,6 +6,8 @@ from collections.abc import Iterable
 
 
 class Foo(OperationNodeTransformer, AttributeManipulationTransformer):
+    __slots__ = ("_operator_import_sym", "_result")
+
     def __init__(self, node: AST) -> None:
         self._operator_import_sym: set[str] = set()
         self._result = fix_missing_locations(self.visit(node))
