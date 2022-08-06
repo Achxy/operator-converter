@@ -1,10 +1,22 @@
-from ast import And, Assign, AugAssign, BinOp, BoolOp, Call, Compare, Load, Name
+from ast import (
+    And,
+    Assign,
+    AugAssign,
+    BinOp,
+    BoolOp,
+    Call,
+    Compare,
+    Load,
+    Name,
+    UnaryOp,
+)
 
 from ._constants import AUGMENT, FIRST
 from ._helpers import (
     get_bin_conversion,
     get_cls_name_of,
     get_cmp_conversion,
+    get_unary_conversion,
     recursively_convert_inner_nodes,
 )
 from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
@@ -58,6 +70,14 @@ class OperationNodeTransformer(AbstractBaseStandardOperationFunctionNodeTransfor
             )
         converted = recursively_convert_inner_nodes(
             BoolOp(op=And(), values=comparators)
+        )
+        self._extend_import_symbols(*converted.operator_import_symbols)
+        return converted.result
+
+    def visit_UnaryOp(self, node: UnaryOp):
+        op = get_unary_conversion(get_cls_name_of(node.op))
+        converted = recursively_convert_inner_nodes(
+            Call(func=Name(id=op, ctx=Load()), args=[node.operand], keywords=[])
         )
         self._extend_import_symbols(*converted.operator_import_symbols)
         return converted.result
