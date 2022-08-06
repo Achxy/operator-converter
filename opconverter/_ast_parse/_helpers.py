@@ -16,3 +16,10 @@ def get_cmp_conversion(cmp_name: str) -> str:
 def get_cls_name_of(obj: Any) -> str:
     cls = type(obj)
     return cls.__name__
+
+
+def recursively_convert_inner_nodes(node):
+    from .parser import Foo
+
+    new = Foo(node)
+    return new
