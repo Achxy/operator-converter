@@ -75,9 +75,9 @@ class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
         """
 
     @abstractmethod
-    def extend_import_symbols(self, *import_symbols: str) -> None:
+    def _extend_import_symbols(self, *import_symbols: str) -> None:
         """
-        Abstract method to report use of an `operator` function, as such they can be
+        Private abstract method to report use of an `operator` function, as such they can be
         imported for use when the tree gets finalized.
 
         Args:
