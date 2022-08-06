@@ -12,14 +12,14 @@ from ._constants import AUGMENT
 
 class OperationNodeTransformer(AbstractStandardOperationFunctionTransformer):
     def visit_AugAssign(self, node: AugAssign) -> Assign:
-        op_name = AUGMENT + get_bin_conversion(get_cls_name_of(node.op))
+        op = AUGMENT + get_bin_conversion(get_cls_name_of(node.op))
         left, right = node.target, node.value
-        self._extend_import_symbols(op_name)
+        self._extend_import_symbols(op)
         converted = recursively_convert_inner_nodes(
             Assign(
                 targets=[node.target],
                 value=Call(
-                    func=Name(id=op_name, ctx=Load()),
+                    func=Name(id=op, ctx=Load()),
                     args=[left, right],
                     keywords=[],
                 ),
@@ -29,12 +29,12 @@ class OperationNodeTransformer(AbstractStandardOperationFunctionTransformer):
         return converted.result
 
     def visit_BinOp(self, node: BinOp) -> Call:
+        op = get_bin_conversion(get_cls_name_of(node.op))
         left, right = node.left, node.right
-        op_name = get_bin_conversion(get_cls_name_of(node.op))
-        self._extend_import_symbols(op_name)
+        self._extend_import_symbols(op)
         converted = recursively_convert_inner_nodes(
             Call(
-                func=Name(id=op_name, ctx=Load()),
+                func=Name(id=op, ctx=Load()),
                 args=[left, right],
                 keywords=[],
             )
@@ -43,20 +43,19 @@ class OperationNodeTransformer(AbstractStandardOperationFunctionTransformer):
         return converted.result
 
     def visit_Compare(self, node: Compare) -> Call:
-        flat = [node.left] + node.comparators
-        new_comparators = []
+        flat, comparators = [node.left] + node.comparators, []
         for current, next, cmp_ops in zip(flat, flat[1:], node.ops):
-            cmp_name = get_cmp_conversion(get_cls_name_of(cmp_ops))
-            self._extend_import_symbols(cmp_name)
-            new_comparators.append(
+            op = get_cmp_conversion(get_cls_name_of(cmp_ops))
+            self._extend_import_symbols(op)
+            comparators.append(
                 Call(
-                    func=Name(id=cmp_name, ctx=Load()),
+                    func=Name(id=op, ctx=Load()),
                     args=[current, next],
                     keywords=[],
                 )
             )
         converted = recursively_convert_inner_nodes(
-            BoolOp(op=And(), values=new_comparators)
+            BoolOp(op=And(), values=comparators)
         )
         self._extend_import_symbols(*converted.operator_import_symbols)
         return converted.result
