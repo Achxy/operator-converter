@@ -1,5 +1,9 @@
-from ast import dump, parse
-from opconverter import convert_operations
+from opconverter._ast_parse.parser import Foo
 
-print(dump(parse("a += 1"), indent=4))
-print(convert_operations("a += 1"))
+sample = """\
+def foo(a, b):
+    return a + b
+"""
+from ast import parse, dump, unparse
+
+print(unparse(Foo(parse(sample)).result))
