@@ -1,3 +1,3 @@
 from typing import Final, TypeAlias
 
-All: TypeAlias = tuple[str]
+All: TypeAlias = Final[tuple[str, ...]]
