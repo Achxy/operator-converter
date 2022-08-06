@@ -1,5 +1,7 @@
-from .abstract import AbstractStandardOperationFunctionTransformer
+from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
 
 
-class AttributeManipulationTransformer(AbstractStandardOperationFunctionTransformer):
+class AttributeManipulationTransformer(
+    AbstractBaseStandardOperationFunctionNodeTransformer
+):
     ...

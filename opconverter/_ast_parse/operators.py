@@ -1,4 +1,4 @@
-from .abstract import AbstractStandardOperationFunctionTransformer
+from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
 from ast import AugAssign, Name, Assign, BinOp, Compare, Call, Load, BoolOp, And
 from ._import_helper import add_ImportFromNode
 from ._helpers import (
@@ -10,7 +10,7 @@ from ._helpers import (
 from ._constants import AUGMENT, FIRST
 
 
-class OperationNodeTransformer(AbstractStandardOperationFunctionTransformer):
+class OperationNodeTransformer(AbstractBaseStandardOperationFunctionNodeTransformer):
     def visit_AugAssign(self, node: AugAssign) -> Assign:
         op = AUGMENT + get_bin_conversion(get_cls_name_of(node.op))
         left, right = node.target, node.value

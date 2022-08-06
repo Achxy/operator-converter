@@ -3,7 +3,7 @@ from ast import Assign, NodeTransformer, AugAssign, BinOp, Call, Compare, AST
 from typing import Any, Iterable
 
 
-class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
+class AbstractBaseStandardOperationFunctionNodeTransformer(ABC, NodeTransformer):
     __slots__ = ()
 
     @abstractmethod
