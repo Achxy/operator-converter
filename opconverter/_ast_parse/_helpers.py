@@ -19,7 +19,7 @@ def get_cls_name_of(obj: Any) -> str:
 
 
 def recursively_convert_inner_nodes(node):
-    from .parser import Foo
+    from .parser import StandardOperationFunctionNodeTransformer
 
-    new = Foo(node)
+    new = StandardOperationFunctionNodeTransformer(node)
     return new

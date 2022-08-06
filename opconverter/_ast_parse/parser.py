@@ -5,7 +5,9 @@ from typing import Any
 from collections.abc import Iterable
 
 
-class Foo(OperationNodeTransformer, AttributeManipulationTransformer):
+class StandardOperationFunctionNodeTransformer(
+    OperationNodeTransformer, AttributeManipulationTransformer
+):
     __slots__ = ("_operator_import_sym", "_result")
 
     def __init__(self, node: AST) -> None:
