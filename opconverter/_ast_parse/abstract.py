@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from ast import Assign, NodeTransformer, AugAssign, BinOp, Call, Compare, AST
-from typing import Iterable
+from typing import Any, Iterable
 
 
 class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
@@ -99,7 +99,7 @@ class AbstractStandardOperationFunctionTransformer(ABC, NodeTransformer):
 
     @property
     @abstractmethod
-    def result(self) -> AST:
+    def result(self) -> Any:  # TODO: This can may be narrowed?
         """
         Abstract property which returns abstract syntax tree node where appropriate
         conversions have taken place, nodes returned by this decriptor can be expected to
