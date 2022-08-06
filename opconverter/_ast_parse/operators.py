@@ -7,7 +7,7 @@ from ._helpers import (
     get_cmp_conversion,
     recursively_convert_inner_nodes,
 )
-from ._constants import AUGMENT
+from ._constants import AUGMENT, FIRST
 
 
 class OperationNodeTransformer(AbstractStandardOperationFunctionTransformer):
@@ -44,7 +44,7 @@ class OperationNodeTransformer(AbstractStandardOperationFunctionTransformer):
 
     def visit_Compare(self, node: Compare) -> Call:
         flat, comparators = [node.left] + node.comparators, []
-        for current, next, cmp_ops in zip(flat, flat[1:], node.ops):
+        for current, next, cmp_ops in zip(flat, flat[FIRST:], node.ops):
             op = get_cmp_conversion(get_cls_name_of(cmp_ops))
             self._extend_import_symbols(op)
             comparators.append(

@@ -21,3 +21,4 @@ CMP_SPECIAL_CASES: Final[dict[str, str]] = {
 }
 DUNDER_FUTURE_IMPORT: Final[str] = "__future__"
 AUGMENT: Final[str] = "i"
+FIRST: Final[int] = 1
