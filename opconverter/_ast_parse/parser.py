@@ -1,8 +1,9 @@
-from ast import fix_missing_locations, AST
-from .operators import OperationNodeTransformer
-from .attr import AttributeManipulationTransformer
-from typing import Any
+from ast import AST, fix_missing_locations
 from collections.abc import Iterable
+from typing import Any
+
+from .attr import AttributeManipulationTransformer
+from .operators import OperationNodeTransformer
 
 
 class StandardOperationFunctionNodeTransformer(

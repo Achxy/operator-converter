@@ -1,13 +1,14 @@
-from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
-from ast import AugAssign, Name, Assign, BinOp, Compare, Call, Load, BoolOp, And
-from ._import_helper import add_ImportFromNode
+from ast import And, Assign, AugAssign, BinOp, BoolOp, Call, Compare, Load, Name
+
+from ._constants import AUGMENT, FIRST
 from ._helpers import (
     get_bin_conversion,
     get_cls_name_of,
     get_cmp_conversion,
     recursively_convert_inner_nodes,
 )
-from ._constants import AUGMENT, FIRST
+from ._import_helper import add_ImportFromNode
+from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
 
 
 class OperationNodeTransformer(AbstractBaseStandardOperationFunctionNodeTransformer):

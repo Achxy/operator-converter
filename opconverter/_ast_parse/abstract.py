@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ast import Assign, NodeTransformer, AugAssign, BinOp, Call, Compare, AST
+from ast import AST, Assign, AugAssign, BinOp, Call, Compare, NodeTransformer
 from typing import Any, Iterable
 
 

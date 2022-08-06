@@ -1,5 +1,6 @@
-from ._constants import BIN_OP_SPECIAL_CASES, CMP_SPECIAL_CASES
 from typing import Any
+
+from ._constants import BIN_OP_SPECIAL_CASES, CMP_SPECIAL_CASES
 
 
 def get_bin_conversion(op_name: str) -> str:
