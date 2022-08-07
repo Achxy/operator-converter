@@ -1,5 +1,6 @@
-from ..typeshack import SpecialCase
 from typing import Final
+
+from ..typeshack import SpecialCase
 
 BIN_OP_SPECIAL_CASES: SpecialCase = {
     "Mult": "mul",

@@ -1,6 +1,5 @@
 from opconverter import convert_operations
 
-
 sample = """\
 def foo(a, b, c):
     b += c
