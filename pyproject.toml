@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "ConvertOperator"
+version = "0.1.0"
+description = "ConvertOperator is a project for converting standard python operations to equivalent function from the operator library"
+license = "GNU Affero General Public License"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
