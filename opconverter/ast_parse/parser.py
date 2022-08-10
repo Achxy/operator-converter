@@ -20,11 +20,14 @@ from collections.abc import Iterable
 from typing import Any
 
 from .attr import AttributeManipulationTransformer
+from .item import ItemManipulationTransformer
 from .operators import OperationNodeTransformer
 
 
 class StandardOperationFunctionNodeTransformer(
-    OperationNodeTransformer, AttributeManipulationTransformer
+    OperationNodeTransformer,
+    AttributeManipulationTransformer,
+    ItemManipulationTransformer,
 ):
     __slots__ = ("_operator_import_sym", "_result")
 

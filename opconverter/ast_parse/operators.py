@@ -33,6 +33,7 @@ from ._helpers import (
     get_bin_conversion,
     get_cls_name_of,
     get_cmp_conversion,
+    Function,
     get_unary_conversion,
     recursively_convert_inner_nodes,
 )
@@ -49,11 +50,7 @@ class OperationNodeTransformer(AbstractBaseStandardOperationFunctionNodeTransfor
         converted = recursively_convert_inner_nodes(
             Assign(
                 targets=[node.target],
-                value=Call(
-                    func=Name(id=op, ctx=Load()),
-                    args=[left, right],
-                    keywords=[],
-                ),
+                value=Function(op, left, right),
             )
         )
         self._extend_import_symbols(*converted.operator_import_symbols)
@@ -63,13 +60,7 @@ class OperationNodeTransformer(AbstractBaseStandardOperationFunctionNodeTransfor
         op = get_bin_conversion(get_cls_name_of(node.op))
         left, right = node.left, node.right
         self._extend_import_symbols(op)
-        converted = recursively_convert_inner_nodes(
-            Call(
-                func=Name(id=op, ctx=Load()),
-                args=[left, right],
-                keywords=[],
-            )
-        )
+        converted = recursively_convert_inner_nodes(Function(op, left, right))
         self._extend_import_symbols(*converted.operator_import_symbols)
         return converted.result
 
@@ -78,24 +69,14 @@ class OperationNodeTransformer(AbstractBaseStandardOperationFunctionNodeTransfor
         for current, next, cmp_ops in zip(flat, flat[FIRST:], node.ops):
             op = get_cmp_conversion(get_cls_name_of(cmp_ops))
             self._extend_import_symbols(op)
-            comparators.append(
-                Call(
-                    func=Name(id=op, ctx=Load()),
-                    args=[current, next],
-                    keywords=[],
-                )
-            )
-        converted = recursively_convert_inner_nodes(
-            BoolOp(op=And(), values=comparators)
-        )
+            comparators.append(Function(op, current, next))
+        converted = recursively_convert_inner_nodes(BoolOp(op=And(), values=comparators))
         self._extend_import_symbols(*converted.operator_import_symbols)
         return converted.result
 
     def visit_UnaryOp(self, node: UnaryOp):
         op = get_unary_conversion(get_cls_name_of(node.op))
         self._extend_import_symbols(op)
-        converted = recursively_convert_inner_nodes(
-            Call(func=Name(id=op, ctx=Load()), args=[node.operand], keywords=[])
-        )
+        converted = recursively_convert_inner_nodes(Function(op, node.operand))
         self._extend_import_symbols(*converted.operator_import_symbols)
         return converted.result

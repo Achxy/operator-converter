@@ -15,7 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from typing import Final
+from typing import Final, Literal
 
 from ..typeshack import SpecialCase
 
@@ -44,4 +44,8 @@ UNARY_OP_SPECIAL_CASES: SpecialCase = {
 
 DUNDER_FUTURE_IMPORT: Final[str] = "__future__"
 AUGMENT: Final[str] = "i"
-FIRST: Final[int] = 1
+CMP_NOT_IN = "NotIn"
+
+FIRST: Final[Literal[1]] = 1
+OPERATOR_GETITEM: Final[str] = "getitem"
+OPERATOR_DELITEM: Final[str] = "delitem"
