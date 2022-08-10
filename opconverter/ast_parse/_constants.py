@@ -44,6 +44,7 @@ UNARY_OP_SPECIAL_CASES: SpecialCase = {
 
 DUNDER_FUTURE_IMPORT: Final[str] = "__future__"
 AUGMENT: Final[str] = "i"
+CMP_NOT_IN = "NotIn"
 
 FIRST: Final[Literal[1]] = 1
 OPERATOR_GETITEM: Final[str] = "getitem"

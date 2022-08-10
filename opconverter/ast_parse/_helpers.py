@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from ast import Name, Load, Call, keyword
 from typing import Any
 
-from ._constants import BIN_OP_SPECIAL_CASES, CMP_SPECIAL_CASES, UNARY_OP_SPECIAL_CASES
+from ._constants import BIN_OP_SPECIAL_CASES, CMP_SPECIAL_CASES, UNARY_OP_SPECIAL_CASES, CMP_NOT_IN
 
 
 def get_bin_conversion(op_name: str) -> str:
@@ -26,7 +26,7 @@ def get_bin_conversion(op_name: str) -> str:
 
 
 def get_cmp_conversion(cmp_name: str) -> str:
-    if cmp_name == "NotIn":
+    if cmp_name == CMP_NOT_IN:
         msg = "NotIn does not have a direct implementation in stdlib `operator`"
         raise ValueError(msg)
     return CMP_SPECIAL_CASES.get(cmp_name, cmp_name.lower())
