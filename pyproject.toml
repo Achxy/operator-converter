@@ -9,6 +9,9 @@ python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 
+[tool.black]
+line-length = 110
+
 [tool.isort]
 profile = "black"
 combine_as_imports = true
