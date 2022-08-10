@@ -1,6 +1,7 @@
 from ast import Assign, Call, Del, Load, Name, Store, Subscript
 
 from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
+from ._helpers import Function
 
 
 class ItemManipulationTransformer(AbstractBaseStandardOperationFunctionNodeTransformer):
@@ -14,18 +15,10 @@ class ItemManipulationTransformer(AbstractBaseStandardOperationFunctionNodeTrans
             return self._del_subscript(node)
 
     def _get_subscript(self, node: Subscript):
-        return Call(
-            func=Name(id="getitem", ctx=Load()),
-            args=[node.value, node.slice],
-            keywords=[],
-        )
+        return Function("getitem", node.value, node.slice)
 
     def _set_subscript(self, obj, target, value):  # ambiguous
         pass
 
     def _del_subscript(self, node):
-        return Call(
-            func=Name(id="delitem", ctx=Load()),
-            args=[node.value, node.slice],
-            keywords=[],
-        )
+        return Function("delitem", node.value, node.slice)
