@@ -1,5 +1,6 @@
+from ast import Assign, Call, Del, Load, Name, Store, Subscript
+
 from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
-from ast import Call, Del, Load, Name, Store, Subscript, Assign
 
 
 class ItemManipulationTransformer(AbstractBaseStandardOperationFunctionNodeTransformer):
