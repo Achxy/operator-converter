@@ -4,7 +4,10 @@ from .abstract import AbstractBaseStandardOperationFunctionNodeTransformer
 from ._helpers import Function
 from ._constants import OPERATOR_GETITEM, OPERATOR_DELITEM
 
-
+# FIXME: Subscript nodes with Del as ctx are always wrapper in ast.Delete node
+# Direct modification will lead to the function being in place of the delete context
+# This has to be fixed
+# FIXME: This does not update import symbols
 class ItemManipulationTransformer(AbstractBaseStandardOperationFunctionNodeTransformer):
     __slots__ = ()
 
